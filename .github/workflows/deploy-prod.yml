@@ -12,18 +12,18 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Setup jfrog cli
-        uses: jfrog/setup-jfrog-cli@v1.0.5
+        uses: jfrog/setup-jfrog-cli@v1
         env:
           JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
-              
+
       - name: Run npm install, build
         run: |        
           jfrog rt npmci ga-npm
           npm run build
-          jfrog rt u "public/" ga-generic/public/          
+          jfrog rt u "public/" ga-generic/public/
 
       - name: Run npm publish, build publish, build scan
         run: |
@@ -31,7 +31,6 @@ jobs:
           jfrog rt npmp ga-npm
           jfrog rt bp
           jfrog rt bs
-  
 
   deploy:
     name: Deploy Node.js app to AWS
@@ -40,10 +39,10 @@ jobs:
     
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Setup jfrog cli
-        uses: jfrog/setup-jfrog-cli@v1.0.5
+        uses: jfrog/setup-jfrog-cli@v1
         env:
           JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
 
