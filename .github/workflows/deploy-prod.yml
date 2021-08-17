@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup jfrog cli
-        uses: jfrog/setup-jfrog-cli@v1.0.5
+        uses: jfrog/setup-jfrog-cli@v1
         env:
           JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
 
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup jfrog cli
-        uses: jfrog/setup-jfrog-cli@v1.0.5
+        uses: jfrog/setup-jfrog-cli@v1
         env:
           JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
 
