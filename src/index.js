@@ -1,7 +1,7 @@
 let p1, p2
 
 p1 = 'Tigers'
-p2 = 'Giants'
+p2 = 'Swallows'
 
 window.onload = () => {
   document.getElementById('p1Name').innerText = p1
