@@ -1,6 +1,7 @@
 let p1, p2
 
 p1 = 'Tigers'
+
 p2 = 'Swallows'
 
 window.onload = () => {
