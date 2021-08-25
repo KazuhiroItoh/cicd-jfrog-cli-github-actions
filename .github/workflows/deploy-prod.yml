@@ -6,6 +6,49 @@ on:
       - master
 
 jobs:
+  Dependabot-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dependabot alerts validation
+        uses: octokit/graphql-action@v2.x
+        id: get_security_vulnerabilities
+        with:
+          query: |
+            query alerts($owner:String!,$repo:String!) {
+              repository(owner:$owner,name:$repo) {
+                vulnerabilityAlerts(last:100) {
+                  totalCount,
+                  nodes {
+                    securityVulnerability{
+                      severity,
+                    }
+                  }
+                }
+              }
+            }
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
+      - name: Failuer of dependabot validation
+        if : ${{ fromJSON(steps.get_security_vulnerabilities.outputs.data).repository.vulnerabilityAlerts.totalCount != 0 }}
+        run: echo NG
+      - name: Sucsess of dependabot validation
+        run: echo OK
+
+  Xray-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+      - uses: actions/setup-node@v1
+      - name: XRAY validation
+        run: node .security/xray.js
+        env:
+          XRAY_USER_NAME: ${{secrets.XRAY_USER_NAME}}
+          XRAY_USER_API_KEY: ${{secrets.XRAY_USER_API_KEY}}
+
   build:
     name: Build Node.js app and Upload it to Artifactory
     runs-on: ubuntu-latest
