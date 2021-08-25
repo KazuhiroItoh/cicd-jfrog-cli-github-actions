@@ -29,7 +29,7 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Failuer of dependabot validation
         if : ${{ fromJSON(steps.get_security_vulnerabilities.outputs.data).repository.vulnerabilityAlerts.totalCount != 0 }}
         run: echo NG
@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: main
+          ref: master
       - uses: actions/setup-node@v1
       - name: XRAY validation
         run: node .security/xray.js
