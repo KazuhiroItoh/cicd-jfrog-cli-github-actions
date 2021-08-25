@@ -29,7 +29,7 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_ARTIFACTORY_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
       - name: Failuer of dependabot validation
         if : ${{ fromJSON(steps.get_security_vulnerabilities.outputs.data).repository.vulnerabilityAlerts.totalCount != 0 }}
         run: echo NG

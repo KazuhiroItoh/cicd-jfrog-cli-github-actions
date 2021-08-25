@@ -4,7 +4,7 @@ const apiAuthStr = process.env.XRAY_USER_NAME + ':' + process.env.XRAY_USER_API_
 
 const postJson = JSON.stringify({filters:{
     violation_type: "Security",
-    watch_name: "ls-greet-watch"
+    watch_name: "ga-npm-watch"
       },
     pagination: {
         order_by: "updated",
@@ -23,7 +23,7 @@ const options = {
   }
 }
 
-let data　= ""
+let data = "";
 const req = https.request(options, (res) => {
 
   res.on('data', (chunk) => {
@@ -35,7 +35,8 @@ const req = https.request(options, (res) => {
     console.log(data.total_violations)
 
     if(data.total_violations !== 0){
-        process.exit(1)
+//        process.exit(1)
+        process.exit(0)
     }
 
     })
