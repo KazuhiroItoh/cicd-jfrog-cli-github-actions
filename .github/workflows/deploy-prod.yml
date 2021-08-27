@@ -73,7 +73,6 @@ jobs:
           jfrog rt bce
           jfrog rt npmp ga-npm
           jfrog rt bp
-          jfrog rt bs
 
   deploy:
     name: Deploy Node.js app to AWS
